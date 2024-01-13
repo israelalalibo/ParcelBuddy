@@ -1,0 +1,69 @@
+<?php
+global $view;
+require_once('Models/User.php');
+require_once ('Views/template/header.phtml');
+?>
+
+<div class="container-fluid">
+    <h1 class="text-center">Add Parcel Entry</h1>
+
+    <form method="post" class="mx-auto EditForm col-md-6">
+        <div class="input-group input-group-lg mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Receiver</span>
+            <input class="form-control" name="receiver" type="text" placeholder="Enter Receiver" required>
+        </div>
+        <div class="input-group input-group-lg mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Address 1</span>
+            <input class="form-control" name="address1" type="text" placeholder="Enter Address" required>
+        </div>
+        <div class="input-group input-group-lg mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Address 2</span>
+            <input class="form-control" name="address2" type="text" placeholder="" required>
+        </div>
+        <div class="input-group input-group-lg mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Postcode</span>
+            <input class="form-control" name="postcode" type="text" placeholder="Enter Postcode" required>
+        </div>
+        <div class="input-group input-group-lg mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Status</span>
+            <select class="form-input" name="status" required>
+                <option value="Ordered">Ordered</option>
+                <option value="Packed">Packed</option>
+                <option value="In Transit">In Transit</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Exception">Exception</option>
+            </select>
+        </div>
+        <div class="input-group input-group-lg mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Deliverer</span>
+            <select class="form-input" name="newDeliverer" required>
+                <?php
+                //for each loop to cycle through the array of delivery users and display their username
+                //on the drop down menu
+                foreach ($view->userSet as $user){
+                    echo '
+                        <option value="'.$user->getUserName().'">'.$user->getUserName().'</option>
+                    ';
+                }
+                ?>
+            </select>
+        </div>
+        <div class="input-group input-group-lg mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Latitude</span>
+            <input class="form-input" name="lat" type="text" placeholder="Latitude" required>
+        </div>
+        <div class="input-group input-group-lg mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Longitude</span>
+            <input class="form-input" name="lng" type="text" placeholder="Longitude" required>
+        </div>
+
+        <div>
+            <button class="btn btn-success" type="submit" name="addEntryBtn">Add Entry</button>
+        </div>
+    </form>
+</div>
+    <form method="post">
+        <button class="btn btn-secondary" type="submit" name="returnFromEdit/Delete/Add">Return</button>
+    </form>
+</body>
+</html>

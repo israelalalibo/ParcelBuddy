@@ -1,0 +1,25 @@
+<?php
+
+require_once ('Views/template/header.phtml');
+
+echo '<p>'.$_SESSION['ID_of_entry'].' is the ID to be deleted </p>';
+
+?>
+<body>
+
+<div class="container-fluid">
+    <h2 class="text-center">Delete Parcel Entry</h2>
+
+    <p ><h1 class="text-center">Are you sure you want to delete this entry?</h1></p>
+
+    <div>
+        <form method="post">
+            <button class="btn btn-secondary" name="returnFromEdit/Delete/Add">Return</button>
+            <button class="btn btn-danger" name="DELETE">Yes, Delete</button>
+        </form>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,74 @@
+<?php
+global $view;
+require_once ('Views/template/header.phtml');
+require_once ('Models/User.php');
+//var_dump($_SESSION['username']);
+//var_dump($_SESSION['id']);
+//var_dump($_SESSION['userID']);
+//var_dump($_SESSION['hasSearched']);
+//var_dump($_SESSION['sInput']);
+//var_dump($_SESSION['isLoggedIn']);
+//var_dump($_SESSION['addEntry']);
+?>
+
+<body >
+    <div>
+        <p>Log in Successful! Welcome <?php echo $_SESSION['username']; ?></p>
+        <form class="addEntry" method="post">
+            <button class="btn btn-success" name="preAddEntry">Add Entry</button>
+        </form>
+    </div>
+
+<?php
+    /**
+     * For the manager to see the listing of parcel entries, they must be logged in, there must be more than a
+     * minimum of 1 row of data returned and the add entry button must have not been pressed
+     */
+
+    if (($_SESSION['isLoggedIn']) and (count($view->deliverypointSet) > 0) and (!isset($_SESSION['addEntry']))) {
+        echo "
+        <h1 align='center'>Parcel Entries</h1>
+        <div class=\"container table-responsive\">
+            <div class=\"row table-striped table-header\">
+                <div class=\"col-md-1\"><b>ID</b></div>
+                <div class=\"col-md-2\"><b>Receiver</b></div>
+                <div class=\"col-md-2\"><b>Address</b></div>
+                <div class=\"col-md-1\"><b>Status</b></div>
+                <div class=\"col-md-1\"><b>Photo</b></div>
+                <div class=\"col-md-1\"><b>Deliverer</b></div>
+                <div class=\"col-md-1\"><b>Latitude</b></div>
+                <div class=\"col-md-1\"><b>longitude</b></div>
+                <div class=\"col-md-2\"><b>Actions</b></div>
+            </div>";
+            foreach ($view->deliverypointSet as $deliveryPoint) {
+                echo '<div class="row table-content">
+                             <div class="col-md-1">'.$deliveryPoint->getDelPointID().'</div>' .
+                    '<div class="col-md-2">' . $deliveryPoint->getRecipientName() .
+                    '</div><div class="col-md-2">' . $deliveryPoint->getAddress1() .
+                    ', ' . $deliveryPoint->getAddress2() .
+                    ', ' . $deliveryPoint->getPostcode() .
+                    '</div><div class="col-md-1">' . $deliveryPoint->getDel_status() .
+                    '</div><div class="col-md-1"><img class="img-responsive status" 
+                             src="https://loremflickr.com/80/100/parcel" alt="status_photo">
+                             </div><div class="col-md-1">' . $deliveryPoint->getDeliverer() .
+                    '</div><div class="col-md-1">' .  $deliveryPoint->getLatitude() .
+                    '</div><div class="col-md-1">' .  $deliveryPoint->getLongitude() .
+
+                    '</div class="col-md-2">
+                        <form class="col-md-2" method="post">
+                            <button name="editEntry" value="'.$deliveryPoint->getDelPointID().'"><a>Edit</a></button> 
+                            <button class="btn btn-danger" name="deleteEntry" 
+                            value="'.$deliveryPoint->getDelPointID().'"><a>Del</a></button>
+                        </form>
+                     </div><br>';
+
+        }
+    }
+    else{
+        echo "<h1>Sorry, Data not found :(</h1>
+                <p>Check search parameters</p>";
+    }
+    require("template/footer.phtml");
+?>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<?php
+
+global $search, $view;
+require_once ('Views/template/header.phtml');
+?>
+
+<body>
+<br><br><p>Log in Successful! Welcome <?php echo $_SESSION['username']; ?></p>
+
+<?php
+    if (($_SESSION['isLoggedIn']) and (count($view->deliveryPointSet) > 0)) {
+        echo "
+         <h1 align='center'>Delivery Points</h1>
+         <div class=\"container table-responsive\">
+            <div class='row table-striped table-header'>
+                <div class=\"col-md-1\"><h6>ID</h6></div>
+                <div class=\"col-md-2\"><h6>Recipient Name</h6></div>
+                <div class=\"col-md-1\"><h6>Address 1</h6></div>
+                <div class=\"col-md-2\"><h6>Address 2</h6></div>
+                <div class=\"col-md-1\"><h6>Postcode</h6></div>
+                <div class=\"col-md-1\"><h6>Deliverer</h6></div>
+                <div class=\"col-md-1\"><h6>Latitude</h6></div>
+                <div class=\"col-md-1\"><h6>Longitude</h6></div>
+                <div class=\"col-md-1\"><h6>Status</h6></div>
+                <div class=\"col-md-1\"><h6>Photo</h6></div>
+            </div>";
+        foreach ($view->deliveryPointSet as $deliveryPoint) {
+            echo '<div class="row table-content">
+                    <div class="col-md-1">' . $deliveryPoint->getDelPointID() .
+                '</div><div class="col-md-2">' . $deliveryPoint->getRecipientName() .
+                '</div><div class="col-md-1">' . $deliveryPoint->getAddress1() .
+                '</div><div class="col-md-2">' . $deliveryPoint->getAddress2() .
+                '</div><div class="col-md-1">' . $deliveryPoint->getPostcode() .
+                '</div><div class="col-md-1">' . $deliveryPoint->getDeliverer() .
+                '</div><div class="col-md-1">' . $deliveryPoint->getLatitude() .
+                '</div><div class="col-md-1">' . $deliveryPoint->getLongitude() .
+                '</div><div class="col-md-1">' . $deliveryPoint->getDel_status() .
+                '</div><div class="col-md-1"><img class="status" src="https://loremflickr.com/80/100/parcel" alt="status_photo">' . '</div></div>';
+        }
+    }
+    else {
+        echo "<h1>Record(s) not found :(</h1>";
+    } ?>
+
+    <div class="row justify-content-md-center">
+        <p class="justify-content-md-center">
+            Showing <?php echo $_SESSION['current_page_number'] ?> of <?php echo $_SESSION['number_of_pages'];  ?>
+        </p>
+
+        <form method="post" class="pagination justify-content-md-center">
+            <div class="">
+                <!-- Go to the first page -->
+                <button type="submit" name="page_nr" value="1"><a>First</a></button>
+
+                <button type="submit" name="page_nr" value="<?php echo $_SESSION['current_page_number'] - 1 ?>"><a>Previous</a></button>
+
+                <?php
+                for ($counter = 1; $counter <= $_SESSION['number_of_pages']; $counter ++){
+                    echo "<button type='submit' name='page_nr' value='$counter'><a>".$counter."</a></button>";
+                }
+                ?>
+                <button type="submit" name="page_nr" value="<?php echo $_SESSION['current_page_number'] + 1 ?>"><a>Next</a></button>
+                <!-- Go to the Last page -->
+                <button type="submit" name="page_nr" value="<?php echo $_SESSION['number_of_pages']?>"><a>Last</a></button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+
+

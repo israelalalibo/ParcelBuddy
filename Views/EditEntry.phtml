@@ -1,0 +1,72 @@
+<?php
+require_once ('Views/template/header.phtml');
+?>
+<body>
+<div class="container-fluid row">
+        <h1 class="text-center">Edit Parcel Entry</h1>
+        <?php foreach ($view->deliveryPointToBeEdited as $dPointToBeEdited){
+        echo '
+        <form method="post" class="mx-auto EditForm col-md-5">
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Receiver</span>
+                <input class="form-control" aria-label="Sizing example input" name="receiver" type="text" 
+                value="'.$dPointToBeEdited->getRecipientName().'" required>
+            </div>
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Address 1</span>
+                <input class="form-control" aria-label="Sizing example input" name="address1" type="text" 
+                value="'.$dPointToBeEdited->getAddress1().'" required>
+            </div>
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Address 2</span>
+                <input class="form-control" aria-label="Sizing example input" name="address2" type="text" 
+                value="'.$dPointToBeEdited->getAddress2().'" required>
+            </div>
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Postcode</span>
+                <input class="form-control" aria-label="Sizing example input" name="postcode" type="text" 
+                value="'.$dPointToBeEdited->getPostcode().'" required>
+            </div>
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Status</span>
+                <select class="form-input" aria-label="Sizing example input" name="status" required>
+                    <option value="Ordered">Ordered</option>
+                    <option value="Packed">Packed</option>
+                    <option value="In Transit">In Transit</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Exception">Exception</option>
+                </select>
+            </div>
+            
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Deliverer</span>
+                <select class="form-input" aria-label="Sizing example input" name="newDeliverer" required>';
+                foreach ($view->userset as $user){
+                    echo '
+                            <option value="'.$user->getUserName().'">'.$user->getUserName().'</option>
+                        ';}
+                echo '
+                </select>
+            </div>
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Latitude</span>
+                <input class="form-control" aria-label="Sizing example input" name="lat" type="text" 
+                value="'.$dPointToBeEdited->getLatitude().'" required>
+            </div>
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Longitude</span>
+                <input class="form-control" name="lng" type="text" 
+                value="'.$dPointToBeEdited->getLongitude().'" required>
+            </div>
+            
+            <button class="btn btn-primary lg" name="editComplete">Edit</button>
+        
+        </form>
+        ';}
+        ?>
+        <form style="padding-left: 20px; padding-bottom: 20px" method="post">
+            <button class="btn btn-secondary" name="returnFromEdit/Delete/Add">Return</button>
+        </form>
+</div>
+
+

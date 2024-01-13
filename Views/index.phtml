@@ -1,0 +1,74 @@
+<?php
+global $view;
+require_once ('Views/template/header.phtml');
+?>
+
+<?php
+//var_dump($_SESSION['isLoggedIn']);
+//var_dump($_SESSION['username']);
+//var_dump($_SESSION['id']);
+//var_dump($_SESSION['userID']);
+//var_dump($_SESSION['hasSearched']);
+//var_dump($_SESSION['sInput']);
+//var_dump($user->getIsLoggedIn()); ?>
+<?php
+/**
+ * Adds the appropriate CSS styling to error message during login
+ */
+if ($view->username_error != null){
+    ?> <style>.username-error{display: block;}</style> <?php
+}
+if ($view->password_error != null){
+    ?> <style>.password-error{display: block;}</style> <?php
+}
+?>
+
+<?php
+//if the isLoggedIn session variable has been set to false, then show the login page
+if (!$_SESSION['isLoggedIn']) { echo ' 
+ 
+<body>
+    <div class="container-fluid">
+         <form class="loginForm mx-auto" action="" method="post">
+            <h1 class="text-center">Log In</h1>
+            
+           
+            <div class="input-group input-group-lg mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Username</span>
+                <input class="form-control" aria-label="Sizing example input" name="username" 
+                type="text" placeholder="Enter username" 
+                value="'; if(isset($_POST['username'])){echo $_POST['username'];}echo'" required>
+            </div>
+            <p class="error username-error">'; echo $view->username_error; echo'</p>
+            
+            <div class="input-group input-group-lg has-validation mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-lg"><label 
+                for="validationServer05">Password</label></span>
+                <input class="form-control" aria-label="Sizing example input" 
+                aria-describedby="validationServer05Feedback" 
+                name="password" type="password" placeholder="Enter password" 
+                value="'; if(isset($_POST['password'])){echo $_POST['password'];} echo'" required>
+            </div>
+            <p class="error password-error">'; echo $view->password_error; echo '</p>
+    
+            <p class="error emptyfields-error">'; echo $view->emptyFields_error;echo '</p>
+            
+            <div class="login-box">
+                <button class="btn btn-primary loginButton" type="submit" name="login">Log In</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html> 
+
+';} ?>
+
+
+
+
+
+
+
+
+
+
