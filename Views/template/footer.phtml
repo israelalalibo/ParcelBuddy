@@ -1,1 +1,28 @@
 
+<div class="row justify-content-md-center">
+    <p class="row justify-content-md-center">
+        Showing <?php echo $_SESSION['current_page_number'] ?> of <?php echo $_SESSION['number_of_pages'];  ?>
+    </p>
+
+    <form method="post" class="pagination justify-content-md-center">
+        <div>
+            <!-- Go to the first page -->
+            <button type="submit" name="page_nr" value="1"><a>First</a></button>
+
+            <button type="submit" name="page_nr" value="<?php echo $_SESSION['current_page_number'] - 1 ?>"><a>Previous</a></button>
+
+            <?php
+            for ($counter = 1; $counter <= $_SESSION['number_of_pages']; $counter ++){
+                echo "<button type='submit' name='page_nr' value='$counter'><a>".$counter."</a></button>";
+            }
+            ?>
+
+            <button type="submit" name="page_nr" value="<?php echo $_SESSION['current_page_number'] + 1 ?>"><a>Next</a></button>
+
+            <!-- Go to the Last page -->
+            <button type="submit" name="page_nr" value="<?php echo $_SESSION['number_of_pages']?>"><a>Last</a></button>
+
+        </div>
+    </form>
+
+</div>
