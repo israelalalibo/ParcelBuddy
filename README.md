@@ -1,4 +1,4 @@
-Bolow are the steps required to access the website.
+Below are the steps required to access the website.
 
 Website URL: http://agg526.poseidon.salford.ac.uk/clientserver/
 
